@@ -6,7 +6,7 @@ import torch.nn as nn
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-dataset = TextureDataset("../data/images")
+dataset = TextureDataset("data/images")
 loader = DataLoader(dataset,batch_size=32,shuffle=True)
 
 model = AutoEncoder().to(device)
@@ -27,4 +27,4 @@ for epoch in range(5):
         total+=loss.item()
     print("epoch",epoch,total)
 
-torch.save(model.state_dict(),"../models/ae.pth")
+torch.save(model.state_dict(),"models/ae.pth")
