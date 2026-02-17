@@ -1,24 +1,49 @@
-# image-latent-representation
-Learning latent visual features from images using CNNs and Autoencoders
+## Image Latent Representation
 
-Overview
+This project explores how a neural network can learn structure from images rather than just memorising pixels.
 
-This project explores learning latent visual representations from images using convolutional autoencoders and CNNs. The workflow mimics scientific pipelines where image structure is correlated with physical properties.
+Instead of predicting labels, the model is trained to compress and reconstruct images.
+Because it is forced to compress them into a small vector, it has to keep only the important visual information (texture, density, clustering).
 
-Methods
+## What the model learns
 
-Image preprocessing and normalization
+Each image is converted into a small numerical “fingerprint” (latent vector).
+If the model learned meaningful structure, visually similar images should end up close together in this latent space.
 
-Transfer learning CNN baseline
+To verify this, the embeddings are projected into 2D using PCA and plotted.
 
-Convolutional autoencoder feature extraction
+See: outputs/embedding_plot.png
 
-PCA visualization of latent space
+## Why this matters
 
-Key Insight
+Many scientific problems (e.g. material or powder analysis) depend on structure rather than object identity.
+This project mirrors that workflow:
 
-The autoencoder compresses images into a feature vector representing structural patterns (texture density, repetition, clustering). Similar images cluster together, demonstrating how visual morphology can map to measurable behaviour in materials.
+image → learned representation → measurable comparison
 
-Relevance
+So instead of manually defining features, the network discovers them automatically.
 
-This workflow mirrors approaches used in material science and pharmaceutical research, where image morphology predicts bulk material properties.
+## Pipeline
+
+Preprocess images into tensors
+
+Train convolutional autoencoder (PyTorch)
+
+Extract latent embeddings
+
+Visualise clustering in 2D space
+
+## How to run
+pip install -r requirements.txt
+python src/train_autoencoder.py
+
+Then open:
+
+notebook/02_embeddings.ipynb
+
+and run all cells.
+
+## Main takeaway
+
+The clustering in the latent space shows the network captured structural similarity, not just pixel values.
+This demonstrates how learned representations from images can be used as quantitative descriptors for real-world data.
